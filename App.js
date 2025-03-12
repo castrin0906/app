@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, Image, Button, StyleSheet, FlatList, Dimensions } from 'react-native';
 import * as Font from 'expo-font';
 
-// Dados dos imóveis
 const imoveis = [
   {
     id: 1,
     nome: 'Casa com 3 quartos',
     localizacao: 'Asa Sul',
     preco: 'R$ 1.500/mês',
-    imagem: 'https://imgbr.imovelwebcdn.com/avisos/2/30/06/64/30/06/360x266/4883412919.jpg?isFirstImage=true'
+    imagem: 'https://meusiteimobiliario.com.br/painel/subdominios/710/fotos/114/400_IMG20200717082903224HDR.jpg'
   },
   {
     id: 2,
@@ -82,7 +81,7 @@ class App extends Component {
               <Image
                 source={{ uri: item.imagem }}
                 style={styles.imagem}
-                resizeMode="contain"
+                resizeMode="cover"
               />
               <Text style={styles.nomeImovel}>{item.nome}</Text>
               <Text style={styles.localizacao}>{item.localizacao}</Text>
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
     width: Dimensions.get('window').width * 0.9, 
     alignItems: 'center',
     shadowColor: '#000',
@@ -133,9 +132,9 @@ const styles = StyleSheet.create({
   },
   imagem: {
     width: '100%',
-    height: Dimensions.get('window').width * 0.7, 
+    height: Dimensions.get('window').width * 0.6, 
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   nomeImovel: {
     fontSize: 22,
