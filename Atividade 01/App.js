@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Button, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, Dimensions } from 'react-native';
 import * as Font from 'expo-font';
 
 const imoveis = [
@@ -30,11 +30,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: '',
       fontsLoaded: false
     };
-
-    this.entrar = this.entrar.bind(this);
   }
 
   async loadFonts() {
@@ -49,12 +46,6 @@ class App extends Component {
     this.loadFonts();
   }
 
-  entrar(message) {
-    this.setState({
-      message: message
-    });
-  }
-
   render() {
     if (!this.state.fontsLoaded) {
       return null;
@@ -63,16 +54,6 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Alumov</Text>
-
-        <Button
-          title="Entrar"
-          onPress={() => this.entrar('Seja bem-vindo ao Alumov!')}
-        />
-
-        <Text style={styles.mensagem}>
-          {this.state.message}
-        </Text>
-
         <FlatList
           data={imoveis}
           keyExtractor={(item) => item.id.toString()}
@@ -109,13 +90,6 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 30,
     fontFamily: 'NotoSans-Black',
-  },
-  mensagem: {
-    fontSize: 30,
-    color: '#58b446',
-    textAlign: 'center',
-    marginTop: 20,
-    marginBottom: 20
   },
   card: {
     backgroundColor: '#fff',
