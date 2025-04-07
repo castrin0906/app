@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Modal, Button } from 'react-native';
+import { 
+  View, 
+  Text, 
+  Image, 
+  ScrollView, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Modal, 
+  Button,
+  Linking
+} from 'react-native';
 
 class App extends Component {
   constructor(props) {
@@ -68,60 +78,70 @@ class App extends Component {
     ];
 
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.cabecalho}>
-          <Text style={styles.titulo}>Asa Sul - Brasília</Text>
-        </View>
-
-        <View style={styles.secaoInformacoes}>
-          <Text style={styles.tituloSecao}>Sobre a Asa Sul</Text>
-          <Text style={styles.descricao}>{infoAsaSul.descricao}</Text>
-          
-          <Text style={styles.subtitulo}>Vantagens:</Text>
-          {infoAsaSul.vantagens.map((vantagem, index) => (
-            <Text key={index} style={styles.itemLista}>• {vantagem}</Text>
-          ))}
-          <Image
-            source={{ uri: infoAsaSul.imagem }}
-            style={styles.imagemAsaSul}
-            resizeMode="cover"
-          />
-        </View>
-
-        <View style={styles.cardEstatisticas}>
-          <View style={styles.itemEstatistica}>
-            <Text style={styles.valorEstatistica}>{infoAsaSul.valorMedio}</Text>
-            <Text style={styles.rotuloEstatistica}>Valor médio</Text>
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.cabecalho}>
+            <Text style={styles.titulo}>Asa Sul - Brasília</Text>
           </View>
-          <View style={styles.itemEstatistica}>
-            <Text style={styles.valorEstatistica}>{infoAsaSul.habitantes}</Text>
-            <Text style={styles.rotuloEstatistica}>Habitantes</Text>
-          </View>
-        </View>
 
-        <View style={styles.secaoCasas}>
-          <Text style={styles.tituloSecao}>Imóveis Disponíveis</Text>
-          
-          {casas.map((casa) => (
-            <TouchableOpacity 
-              key={casa.id} 
-              style={styles.cardCasa}
-              onPress={() => this.setState({ selectedHouse: casa, modalVisible: true })}
-            >
-              <Image
-                source={{ uri: casa.imagem }}
-                style={styles.imagemCasa}
-                resizeMode="cover"
-              />
-              <View style={styles.infoCasa}>
-                <Text style={styles.endereco}>{casa.endereco}</Text>
-                <View style={styles.detalhesCasa}>
-                  <Text style={styles.preco}>{casa.valor}</Text>
-                  <Text style={styles.quartos}>{casa.quartos} quartos</Text>
+          <View style={styles.secaoInformacoes}>
+            <Text style={styles.tituloSecao}>Sobre a Asa Sul</Text>
+            <Text style={styles.descricao}>{infoAsaSul.descricao}</Text>
+            
+            <Text style={styles.subtitulo}>Vantagens:</Text>
+            {infoAsaSul.vantagens.map((vantagem, index) => (
+              <Text key={index} style={styles.itemLista}>• {vantagem}</Text>
+            ))}
+            <Image
+              source={{ uri: infoAsaSul.imagem }}
+              style={styles.imagemAsaSul}
+              resizeMode="cover"
+            />
+          </View>
+
+          <View style={styles.cardEstatisticas}>
+            <View style={styles.itemEstatistica}>
+              <Text style={styles.valorEstatistica}>{infoAsaSul.valorMedio}</Text>
+              <Text style={styles.rotuloEstatistica}>Valor médio</Text>
+            </View>
+            <View style={styles.itemEstatistica}>
+              <Text style={styles.valorEstatistica}>{infoAsaSul.habitantes}</Text>
+              <Text style={styles.rotuloEstatistica}>Habitantes</Text>
+            </View>
+          </View>
+
+          <View style={styles.secaoCasas}>
+            <Text style={styles.tituloSecao}>Imóveis Disponíveis</Text>
+            
+            {casas.map((casa) => (
+              <TouchableOpacity 
+                key={casa.id} 
+                style={styles.cardCasa}
+                onPress={() => this.setState({ selectedHouse: casa, modalVisible: true })}
+              >
+                <Image
+                  source={{ uri: casa.imagem }}
+                  style={styles.imagemCasa}
+                  resizeMode="cover"
+                />
+                <View style={styles.infoCasa}>
+                  <Text style={styles.endereco}>{casa.endereco}</Text>
+                  <View style={styles.detalhesCasa}>
+                    <Text style={styles.preco}>{casa.valor}</Text>
+                    <Text style={styles.quartos}>{casa.quartos} quartos</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+
+        {/* Rodapé Simples */}
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>© 2025 Alumov</Text>
+          <TouchableOpacity onPress={() => Linking.openURL('alumov@gmail.com')}>
+            <Text style={styles.footerLink}>Contato</Text>
+          </TouchableOpacity>
         </View>
 
         <Modal
@@ -159,7 +179,7 @@ class App extends Component {
             </View>
           </View>
         </Modal>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -168,6 +188,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
+  },
+  scrollView: {
+    flex: 1,
+    marginBottom: 0, 
   },
   cabecalho: {
     backgroundColor: '#d3a971',
@@ -339,13 +363,32 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 15,
   },
-  modalDescricaoContainer: {
+  modalDescriptionContainer: {
     marginBottom: 15,
   },
   modalDescription: {
     fontSize: 16,
     lineHeight: 24,
     textAlign: 'justify',
+  },
+  footer: {
+    backgroundColor: '#333',
+    padding: 15,
+    alignItems: 'center',
+    position: 'relative',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  footerText: {
+    color: '#fff',
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  footerLink: {
+    color: '#d3a971',
+    fontSize: 14,
+    textDecorationLine: 'underline',
   },
 });
 
